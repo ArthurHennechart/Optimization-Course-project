@@ -25,7 +25,7 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
     [ic, jc] = size(canon);
     for j = v
         if (tmp(ic,j) ~= 0)
-            i = find(tmp(:,j)==1,1,'last');
+            i = find(tmp(:,j)==1,1,'first');
             tmp(ic, :) = tmp(ic, :) - tmp(ic, j)*tmp(i, :);
         end
     end
@@ -48,32 +48,34 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
         minvpi = [];
 
         % finding rj < 0 for p
-        minvq = min(tmp(ic, jc-1));
+        minvq = min(tmp(ic, 1:jc-1));
         if (minvq >= 0) % rj is positive, method over
             fprintf("Simplex method done, minimum value positive\n");
             break;
         end
         fini = false;
 
-        q = find(tmp(ic, jc-1)==minvq,1,'first');
+        q = find(tmp(ic, 1:jc-1)==minvq,1,'first');
 
         % finding p
         for i = 1:ic-1
-            if (tmp(i,ic) <= 0)
+            if (tmp(i,q) <= 0)
                 continue;
             end
-            minvp = [minvp, tmp(i:p)/tmp(i:ic)];
+            minvp = [minvp, tmp(i,jc)/tmp(i,q)];
             minvpi = [minvpi i];
         end
-       
-        if (isempty(minvp))
+        
+        if (isempty(minvp) == true)
             fprintf("Error, there are no yi0/yiq coefficients that are strictly positive, the problem is unbounded\n");
             break;
         end
-        p = min(minvp);
-        p = minvpi(:,p);
+        minvp
+        minvpi
+        p = find(minvp==min(minvp),1,"first")
+        p = minvpi(1,p)
         
-        tmp(p,:) = tmp(p,:) / tmp(p,q);
+        tmp(p,:) = tmp(p,:) / tmp(p,q)
         for i = 1:ic
             if i == p
                 continue;
@@ -81,6 +83,8 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
 
             tmp(i,:) = tmp(i,:) - (tmp(i,q)/tmp(p,q));
         end
+        
+        tmp
     end
     
     clear i;
