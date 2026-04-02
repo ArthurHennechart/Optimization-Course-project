@@ -4,8 +4,11 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
     clear B;
     clear canon;
 
-    canon = [A b; c' 0];
-    %canon = vertcat(canon, [c' 0]);
+    f = 0;
+    x = 0;
+
+    canon = [A b'];
+    canon = vertcat(canon, [c 0]);
 
     B = A(:, v);
 
@@ -52,7 +55,7 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
         end
         fini = false;
 
-        q = find(tmp(ic, 1:jc-1)==minvq,1,'first')
+        q = find(tmp(ic, 1:jc-1)==minvq,1,'first');
 
         % finding p
         for i = 1:ic-1
@@ -67,51 +70,37 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
             fprintf("Error, there are no yi0/yiq coefficients that are strictly positive, the problem is unbounded\n");
             break;
         end
-        minvp;
-        minvpi;
-        p = find(minvp==min(minvp),1,"first");
+        minvp
+        minvpi
+        p = find(minvp==min(minvp),1,"first")
         p = minvpi(1,p)
         
-        tmp(p,:) = tmp(p,:) / tmp(p,q);
+        tmp(p,:) = tmp(p,:) / tmp(p,q)
         for i = 1:ic
             if i == p
                 continue;
             end
 
-
-            tmp(i,:) = tmp(i,:) - (tmp(i,q)/tmp(p,q))*(tmp(p,:));
+            tmp(i,:) = tmp(i,:) - (tmp(i,q)/tmp(p,q));
         end
         
         tmp
     end
     
-    %B=tmp(:,v);
-    %B(ib+1,:) = [];
-    
+    B=tmp(:,v);
+    B(ib+1,:) = [];
 
-    x = zeros(jc-1, 1);
-    
-    i = 1;
-    for j = v
-        x(j,1) = tmp(i, jc);
-        i = i + 1;
+    x = []
+    for i=1:ic
+        if ismember(i, v)
+            x = vertcat(x, tmp(ic,));
+        else
+            x = vertcat(x,0);
+        end
     end
-
-    f = c'*x;
-    
-    % recalculating the indices for the BFS vector
-    for j=1:jc-1 
-        for jb=1:ic-1
-            if tmp(1:ic-1, j) == B(:, jb)
-                v(1,jb) = j;
-            end
-        end    
-    end
-    B=v;
 
     clear i;
-    clear j;
-
+    
     clear ib;
     clear jb;
     
