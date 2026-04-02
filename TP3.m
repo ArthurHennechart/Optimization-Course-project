@@ -3,12 +3,17 @@ fprintf('Partie 3\n');
 
 %% 3.1
 fprintf('3.1:\n');
+rosen = @(x) 100*(x(2) - x(1)^2)^2 + (1 - x(1))^2;
+
+[xmin, fval] = fminunc(rosen, [-1, -1]);
+fprintf("By using the fminunc function :\n the minimum is %.6f and it is reached at [%.6f, %.6f]\n", fval, xmin(1), xmin(2));
+
 x0 = [-1,2];
 eps1 = 1e-3; %convergence
 eps2 = 1e-4; %line search
 x_rosen = Steepest_Descent_Rosen(x0, eps1, eps2);
 
-fprintf('Rosenbrock Steepest Descent:\n');
+fprintf('\nRosenbrock Steepest Descent:\n');
 fprintf('x_min = [%.6f, %.6f]\n',x_rosen(1), x_rosen(2));
 fprintf('f(x_xmin) = %.6f\n\n', 100*(x_rosen(2)-x_rosen(1)^2)^2 + (1-x_rosen(1))^2);
 
@@ -26,10 +31,12 @@ fprintf('Step size alpha = %.6f\n', alpha);
 fprintf('x after 1 iteration = [%.6f, %.6f]\n\n', x1_example(1), x1_example(2));
 
 %% 3.3
+
+% we chose random values for q1, x0 and lambda
 fprintf('3.3:\n');
-Q1 = 5*eye(2);
-q1 = [-3;-1];
-x0_q1 = [-2;-8];
+Q1 = 6*eye(2);
+q1 = [-10;-1];
+x0_q1 = [-3;-8];
 fprintf('Quadratic case 1: Q=5*I\n')
 Steepest_Descent_Quad(Q1, q1, x0_q1)
 
@@ -44,3 +51,8 @@ q3 = [-3;-3];
 x0_q3 = [-2;-7];
 fprintf('Quadratic case 3: Q=[2 0;0 1]\n')
 Steepest_Descent_Quad(Q3, q3, x0_q3)
+
+fprintf("\nIn terms of convergence speed : \n");
+fprintf("Case 1 converges in just 1 step\n");
+fprintf("Then comes Case 3 with 15 steps\n");
+fprintf("The slowest to converge is Case 3 with 50 steps\n");
