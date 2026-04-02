@@ -1,8 +1,8 @@
 function [f,x,B] = LP_Two_Phase_Simplex(A,b,c)
 
-    canon = [A b; c' 0]
+    canon = [A b; c' 0];
 
-    [ic jc] = size(canon);
+    [ic, jc] = size(canon);
     
     B = eye(ic-1);
     v = ones(1, ic-1)*-1;
@@ -17,7 +17,7 @@ function [f,x,B] = LP_Two_Phase_Simplex(A,b,c)
         end    
     end
     
-    v2 = find(v(1,:) == -1, ic-1, 'first')
+    v2 = find(v(1,:) == -1, ic-1, 'first');
     
     % if the v vector is determined, only one phase is necessary
     if isempty(v2)
@@ -28,15 +28,15 @@ function [f,x,B] = LP_Two_Phase_Simplex(A,b,c)
     
     lv2 = length(v2);
     ctmp = ones(jc-1+lv2,1);
-    ctmp(1:jc-1) = 0
+    ctmp(1:jc-1) = 0;
 
-    Atmp = A
+    Atmp = A;
     
     for i=v2
-        Atmp = [Atmp B(:,i)]
+        Atmp = [Atmp B(:,i)];
     end
     
-    canon = [Atmp b; ctmp' 0]
+    canon = [Atmp b; ctmp' 0];
     jc = jc + lv2;
 
     % recalculating the indices for the BFS vector
@@ -49,11 +49,11 @@ function [f,x,B] = LP_Two_Phase_Simplex(A,b,c)
     end
 
     % first phase
-    [f,x,B] = LP_Simplex(Atmp,b,ctmp,v);
+    [~,~,B] = LP_Simplex(Atmp,b,ctmp,v);
 
   
     % second phase
-    [f, x, B] = LP_Simplex(A,b,c,B);
+    [f, x, B] = LP_Simplex(A,b,c,B)
 
     clear lv2;
     clear i;

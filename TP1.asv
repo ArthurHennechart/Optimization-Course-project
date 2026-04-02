@@ -62,7 +62,6 @@ fprintf("Test 1 end --------\n");
 
 fprintf("\nTwo phase simplex method test over\n")
 
-
 clear A1;
 clear b1;
 clear c1;
