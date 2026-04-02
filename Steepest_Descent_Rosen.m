@@ -17,7 +17,7 @@ while true
         end
         alpha = alpha_new;
     end
-    x_new = x - alpha * g
+    x_new = x - alpha * g;
 
     r = norm(x_new-x);
     if (norm(x)<=0)
@@ -29,9 +29,9 @@ while true
     if r < eps1
         break;
     end
-    n = n + 1
+    n = n + 1;
     x=x_new;
-    X = [X x]
+    X = [X x];
 end
 
 figure; hold on; grid on;
