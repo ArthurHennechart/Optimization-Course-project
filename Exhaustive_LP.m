@@ -49,7 +49,6 @@ for i = 1:size(comb,1)
         B_opt = B;
     end
         
-   
 end
 
 end

@@ -12,17 +12,36 @@ A3 = [1 1 -1 4; 1 -2 -1 1];
 b3 = [8 2]';
 c3 = [1 1 1 1]';
 
+A4 = [4 2 -1 0; 1 4 0 -1];
+b4 = [12 6]';
+c4 = [2 3 0 0]';
+
 %% Exhaustive_LP test
 fprintf("Exhaustive LP test :\n");
 
-fprintf("\n Matrixes uses : \n");
+fprintf("\nTest 1 start ---------\n");
+fprintf("\n Matrixes used : \n");
 A3
 b3
 c3
+fprintf("------\n");
 [f, x, B] = Exhaustive_LP(A3,b3,c3);
 f
 x
 b
+fprintf("Test 1 end --------\n");
+
+fprintf("\nTest 2 start ---------\n");
+fprintf("\n Matrixes used : \n");
+A4
+b4
+c4
+fprintf("------\n");
+[f, x, B] = Exhaustive_LP(A4,b4,c4);
+f
+x
+b
+fprintf("Test 2 end --------\n");
 
 fprintf("Exhaustive LP test over\n\n");
 
@@ -72,9 +91,22 @@ x
 B
 fprintf("Test 1 end --------\n");
 
+
+fprintf("\nTest 2 start ---------\n");
+fprintf("\nMatrixes used : \n");
+A4
+b4
+c4
+fprintf("------\n");
+[f, x, B] = LP_Two_Phase_Simplex(A4,b4,c4);
+f
+x
+B
+fprintf("Test 2 end --------\n");
+
 fprintf("\nTwo phase simplex method test over\n")
 
-% clearing the variables to avoid a mess
+%% clearing the variables to avoid a mess
 clear A1;
 clear b1;
 clear c1;
@@ -83,6 +115,9 @@ clear b2;
 clear A3;
 clear b3;
 clear c3;
+clear A4;
+clear b4;
+clear c4;
 clear f;
 clear x;
 clear B;
