@@ -55,4 +55,4 @@ Steepest_Descent_Quad(Q3, q3, x0_q3)
 fprintf("\nIn terms of convergence speed : \n");
 fprintf("Case 1 converges in just 1 step\n");
 fprintf("Then comes Case 3 with 15 steps\n");
-fprintf("The slowest to converge is Case 3 with 50 steps\n");
+fprintf("The slowest to converge is Case 2 with 50 steps\n");

@@ -81,6 +81,7 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
 
             tmp(i,:) = tmp(i,:) - (tmp(i,q)/tmp(p,q))*(tmp(p,:));
         end
+        v(p) = q;
         
         tmp
     end
@@ -99,14 +100,6 @@ function [f,x,B] = LP_Simplex(A,b,c,v)
 
     f = c'*x;
     
-    % recalculating the indices for the BFS vector
-    for j=1:jc-1 
-        for jb=1:ic-1
-            if tmp(1:ic-1, j) == B(:, jb)
-                v(1,jb) = j;
-            end
-        end    
-    end
     B=v;
 
     clear i;

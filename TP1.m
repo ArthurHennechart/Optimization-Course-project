@@ -28,7 +28,7 @@ fprintf("------\n");
 [f, x, B] = Exhaustive_LP(A3,b3,c3);
 f
 x
-b
+B
 fprintf("Test 1 end --------\n");
 
 fprintf("\nTest 2 start ---------\n");
@@ -40,7 +40,7 @@ fprintf("------\n");
 [f, x, B] = Exhaustive_LP(A4,b4,c4);
 f
 x
-b
+B
 fprintf("Test 2 end --------\n");
 
 fprintf("Exhaustive LP test over\n\n");

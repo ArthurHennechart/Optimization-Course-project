@@ -36,7 +36,7 @@ eps_newton = 1e-4;
 eps_secant = 1e-4;
 
 [x_newton, x_hist_newton] = Newton_Method_Hist(df, d2f, 2, eps_newton);
-[x_secant, x_hist_secant] = Secant_Method_Hist(df, 2, 2.1, eps_secant);
+[x_secant, x_hist_secant] = Secant_Method_Hist(df, 2.1, 2, eps_secant);
 
 x_vals = linspace(-5,5,500);
 y_vals = f(x_vals);
