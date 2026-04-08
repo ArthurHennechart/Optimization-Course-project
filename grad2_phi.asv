@@ -1,4 +1,0 @@
-function val = grad2_phi(x, d, alpha)
-eps = 1;
-val = (grad_phi(x, d, alpha+eps)-grad_phi(x, d, alpha))/eps;
-end
