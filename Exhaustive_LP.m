@@ -13,6 +13,7 @@ f_opt = inf;
 x_opt = zeros(n,1);
 B_opt = [];
 
+% go through all combinations
 for i = 1:size(comb,1)
     B = comb(i,:);
     AB = A(:,B);

@@ -23,14 +23,6 @@ grid on;
 f = @(x) 2*x.^4 - 5*x.^3 + 100*x.^2 +30*x -75;
 df = @(x) 8*x.^3 - 15*x.^2 + 200*x + 30;
 d2f = @(x) 24*x.^2 - 30*x + 200;
-x_newton = Newton_Method(df, d2f, 2, 1e-4);
-x_secant = Secant_Method(df, 2.1, 2, 1e-4);
-
-fprintf('Partie 2.2\n');
-fprintf('Résultat Newton Method:\n');
-fprintf('x optimal = %.4f\n\n', x_newton);
-fprintf('Résultat Secant Method:\n');
-fprintf('x optimal = %.4f\n\n', x_secant);
 
 eps_newton = 1e-4;
 eps_secant = 1e-4;
@@ -38,6 +30,13 @@ eps_secant = 1e-4;
 [x_newton, x_hist_newton] = Newton_Method_Hist(df, d2f, 2, eps_newton);
 [x_secant, x_hist_secant] = Secant_Method_Hist(df, 2.1, 2, eps_secant);
 
+fprintf('Partie 2.2\n');
+fprintf('Résultat Newton Method:\n');
+fprintf('x optimal = %.4f\n\n', x_newton);
+fprintf('Résultat Secant Method:\n');
+fprintf('x optimal = %.4f\n\n', x_secant);
+
+% graphic representation of the convergences
 x_vals = linspace(-5,5,500);
 y_vals = f(x_vals);
 figure; hold on; grid on;
@@ -48,3 +47,5 @@ xlabel('x');
 ylabel('f(x)');
 title('Newton vs Secant Method - Convergence')
 legend('f(x)','Newton iterations','Secant iterations','Location', 'best');
+
+clear;

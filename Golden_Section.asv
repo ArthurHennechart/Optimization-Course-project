@@ -5,8 +5,8 @@ phi=(1+sqrt(5))/2;
 
 % the main loop with the stopping point being the critera b-a <= eps
 while b-a > eps
-    % x1 = b - (b-1)/golden ratio
-    % x2 = a + (b-1)/golden ratio
+    % x1 = b - (b-1)/golden ration
+    % x2 = a + (b -
 
     x1= b - (b-a)/phi;
     x2= a + (b-a)/phi;

@@ -19,16 +19,21 @@ fprintf('f(x_xmin) = %.6f\n\n', 100*(x_rosen(2)-x_rosen(1)^2)^2 + (1-x_rosen(1))
 
 %% 3.2
 fprintf('3.2:\n');
-x0_example = [1/2; 5/4];
-g_example = [16*x0_example(1)*(2*x0_example(1)^2 - x0_example(2)) + 6*x0_example(1); -2*(2*x0_example(1)^2 - x0_example(2)) - 1];
-H_example = [16*(6*x0_example(1)^2 - x0_example(2)) + 6, -4*x0_example(1); -4*x0_example(1), 2];
-alpha = (g_example'*g_example)/(g_example'*H_example*g_example);
-x1_example = x0_example - alpha*g_example;
+x0 = [1/2; 5/4];
+g = [2*x0(1)*(8*x0(1)^2 - 4*x0(2)) + 6*x0(1); -2*(2*x0(1)^2 - x0(2)) - 1];
+H = [2*(24*x0(1)^2 - 4*x0(2)) + 3, -8*x0(1); -8*x0(1), 2];
+alpha = (g'*g)/(g'*H*g);
+x1 = x0 - alpha*g;
 
-fprintf('Initial x0 = [%2.f,%2.f]\n', x0_example(1), x0_example(2));
-fprintf('Gradient g0 = [%.4f,%.4f]\n', g_example(1), g_example(2));
+fprintf('Initial x0 = [%.2f,%.2f]\n', x0(1), x0(2));
+fprintf('Gradient g0 = [%.4f,%.4f]\n', g(1), g(2));
 fprintf('Step size alpha = %.6f\n', alpha);
-fprintf('x after 1 iteration = [%.6f, %.6f]\n\n', x1_example(1), x1_example(2));
+fprintf('x after 1 iteration = [%.6f, %.6f]\n\n', x1(1), x1(2));
+
+H = [2*(24*x1(1)^2 - 4*x1(2) + 3), -8*x1(1); -8*x1(1), 2];
+veigs = eig(H);
+fprintf("The eigenvalues of the Hessian matrix for x1 are (%0.3f, %0.3f), since theyre both strictly positive, H is definite positive and f is convex at x1\n\n", veigs(1), veigs(2));
+
 
 %% 3.3
 
@@ -56,3 +61,5 @@ fprintf("\nIn terms of convergence speed : \n");
 fprintf("Case 1 converges in just 1 step\n");
 fprintf("Then comes Case 3 with 15 steps\n");
 fprintf("The slowest to converge is Case 2 with 50 steps\n");
+
+clear;

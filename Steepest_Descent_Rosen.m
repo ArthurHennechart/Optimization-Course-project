@@ -1,9 +1,12 @@
 function x = Steepest_Descent_Rosen(x0, eps1, eps2)
 x = x0;
-%x(1) = -x(1);
-x = x'
-X=[x]
-n = 0
+x = x';
+
+% history of all points visited
+hist=[ x ];
+
+% number of steps taken
+n = 0;
 
 %% the main loop
 while true
@@ -48,14 +51,16 @@ while true
     % update number of steps
     n = n + 1;
 
-    % update x and the new x to the set of points visited
+    % update x
     x=x_new;
-    X = [X x];
+
+    % update the list of visited points
+    hist = [hist x];
 end
 
 % draw the convergence
 figure; hold on; grid on;
-plot(X(1,:), X(2,:), 'o-', 'LineWidth', 1.5);
+plot(hist(1,:), hist(2,:), 'o-', 'LineWidth', 1.5);
 xlabel('x1');
 ylabel('x2');
 t = strcat('Steepest Descent on Rosebrock function done in :',num2str(n));

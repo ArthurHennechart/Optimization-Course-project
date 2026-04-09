@@ -1,6 +1,10 @@
 function Steepest_Descent_Quad(Q, q, x0)
 x = x0;
-X = x';
+
+% history of points visited
+hist = x';
+
+% number of steps taken;
 n = 0;
 for k = 1:50
     g = Q*x +q;
@@ -9,11 +13,11 @@ for k = 1:50
     end
     alpha = (g'*g)/(g'*Q*g);
     x = x - alpha*g;
-    X = [X; x'];
+    hist = [hist; x'];
     n = n + 1;
 end
 figure; hold on; grid on;
-plot(X(:,1), X(:,2), 'o-', 'LineWidth', 1.5);
+plot(hist(:,1), hist(:,2), 'o-', 'LineWidth', 1.5);
 xlabel('x1');
 ylabel('x2');
 t = strcat('Steepest Descent - Quadratic Function done in:',num2str(n));

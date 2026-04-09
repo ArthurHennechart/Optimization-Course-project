@@ -1,3 +1,7 @@
+clc;
+clear all;
+close all;
+
 %% The variables needed
 A1 = [2 0 -2 4 0; 2 -4 0 -2 0; 2 0 1 1 1];
 b1 = [4 6 10]';
